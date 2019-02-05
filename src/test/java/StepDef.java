@@ -5,9 +5,14 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.runtime.PendingException;
 import gherkin.formatter.model.Scenario;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -52,15 +57,23 @@ public class StepDef {
         driver.navigate().to(url);
     }
 
-    @Given("Sample feature file is ready")
-    public void givenStatement() {
+    @Given("^Search for Pokemon Number '(.*?)'$")
+    public void givenStatement(String text) {
             // Write code here that turns the phrase above into concrete actions
-        System.out.println("Given Statement executed successfully!");
+        WebElement textField = driver.findElement(By.id("filled-name"));
+        textField.clear();
+        textField.sendKeys(text);
+
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        textField.sendKeys(Keys.RETURN);
     }
-    @When("I run the feature file")
-    public void whenStatement () {
+    @When("^Result Should be (.*?)$")
+    public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
-        System.out.println("When Statement executed successfully!");
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        String returnValue = driver.findElement(By.className("jss217 jss219 jss226")).getText();
+        assert text.equals(returnValue);
     }
     @Then("Run should be successful")
     public void thenStatement () {

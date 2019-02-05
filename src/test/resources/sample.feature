@@ -5,7 +5,7 @@ Feature: To test my cucumber test is running
   Background:
     Given Open https://fhv-application-staging.herokuapp.com/
 
-  Scenario: cucumber setup
-    Given Sample feature file is ready
-    When I run the feature file
+  Scenario: Search Pokemon Number
+    Given Search for Pokemon Number '1'
+    When Result Should be 'bulbasaur'
     Then Run should be successful
