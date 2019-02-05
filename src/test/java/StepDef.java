@@ -70,8 +70,6 @@ public class StepDef {
     @When("^Result Should be (.*?)$")
     public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-
         String returnValue = driver.findElement(By.className("jss217 jss219 jss226")).getText();
         assert text.equals(returnValue);
     }
