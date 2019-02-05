@@ -3,15 +3,13 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.runtime.PendingException;
-import gherkin.formatter.model.Scenario;
+import cucumber.api.Scenario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
@@ -39,8 +37,7 @@ public class StepDef {
         }
 
         driver = new RemoteWebDriver(
-                new URL("http://" + System.getenv("TESTINGBOT_CREDENTIALS") + "@hub.testingbot.com/wd/hub"),
-                capabilities);
+                new URL("http://" + System.getenv("TESTINGBOT_CREDENTIALS") + "@hub.testingbot.com/wd/hub"), capabilities);
 
         // prevent errors if we start from a sleeping heroku instance
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
