@@ -3,15 +3,13 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.runtime.PendingException;
-import gherkin.formatter.model.Scenario;
+import cucumber.api.Scenario;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.URL;
@@ -21,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class StepDef {
 
     private WebDriver driver;
+    private static String testingBotKEY = "94f57a596c711ad6357dd1f5833de3fc";
+    private static String testingBotSECRET = "e0b277577452d24fed318e949b2d961d";
 
     /**
      * Setup the firefox test driver. This needs the environment variable
@@ -28,9 +28,10 @@ public class StepDef {
      */
     @Before
     public void before(Scenario scenario) throws Exception {
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platform", "WIN10");
-        capabilities.setCapability("version", "64");
+        capabilities.setCapability("version", "65");
         capabilities.setCapability("browserName", "firefox");
         capabilities.setCapability("name", scenario.getName());
 
@@ -39,8 +40,7 @@ public class StepDef {
         }
 
         driver = new RemoteWebDriver(
-                new URL("http://" + System.getenv("TESTINGBOT_CREDENTIALS") + "@hub.testingbot.com/wd/hub"),
-                capabilities);
+                new URL("http://" + testingBotKEY + ":" + testingBotSECRET + "@hub.testingbot.com/wd/hub"), capabilities);
 
         // prevent errors if we start from a sleeping heroku instance
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -67,14 +67,37 @@ public class StepDef {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         textField.sendKeys(Keys.RETURN);
     }
-    @When("^Result Should be (.*?)$")
+
+    @When("^Result Should be '(.*?)'$")
     public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
-        String returnValue = driver.findElement(By.className("jss217 jss219 jss226")).getText();
-        assert text.equals(returnValue);
+        String returnValue = driver.findElement(By.id("pokename")).getText();
+        assert text.equals(returnValue.toLowerCase());
     }
+
     @Then("Run should be successful")
     public void thenStatement () {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println("Then Statement executed successfully!");
+    }
+
+    @Given("^Open History")
+    public void givenStatementHistory(String text) {
+        // Write code here that turns the phrase above into concrete actions
+        WebElement button = driver.findElement(By.id("history"));
+        button.click();
+    }
+
+    @When("^History should show Pokemon '(.*?)'$")
+    public void whenStatementHistory (String text) {
+        // Write code here that turns the phrase above into concrete actions
+        WebElement tableEntry = driver.findElement(By.id("histoPoke0"));
+        String historyEntry = tableEntry.getText().toLowerCase();
+        assert text.equals(historyEntry);
+    }
+
+    @Then("Run should be successful")
+    public void thenStatementHistory () {
         // Write code here that turns the phrase above into concrete actions
         System.out.println("Then Statement executed successfully!");
     }
