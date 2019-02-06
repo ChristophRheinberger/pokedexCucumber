@@ -8,9 +8,9 @@ Feature: To test my cucumber test is running
   Scenario: Search Pokemon Number
     Given Search for Pokemon Number '1'
     When Result Should be 'bulbasaur'
-    Then Run should be successful
+    Then Test Pokemon should be successful
 
   Scenario: Show History Table
-    Given Open History
-    When History should show Pokemon 'bulbasaur'
-    Then Run should be successful
+    Given Show History
+    When History should show Pokemon
+    Then Test History should be successful
