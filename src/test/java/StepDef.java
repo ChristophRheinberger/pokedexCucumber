@@ -19,8 +19,6 @@ import java.util.concurrent.TimeUnit;
 public class StepDef {
 
     private WebDriver driver;
-    private static String testingBotKEY = "94f57a596c711ad6357dd1f5833de3fc";
-    private static String testingBotSECRET = "e0b277577452d24fed318e949b2d961d";
 
     /**
      * Setup the firefox test driver. This needs the environment variable
