@@ -3,7 +3,7 @@ Feature: To test my cucumber test is running
   I want to run a sample feature file.
 
   Background:
-    Given Open https://fhv-application-staging.herokuapp.com/
+    Given Open https://mega-pokedex-staging.herokuapp.com/
 
   Scenario: Search Pokemon Number
     Given Search for Pokemon Number '1'

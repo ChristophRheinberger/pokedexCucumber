@@ -19,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class StepDef {
 
     private WebDriver driver;
+    private static String testingBotKEY = "94f57a596c711ad6357dd1f5833de3fc";
+    private static String testingBotSECRET = "e0b277577452d24fed318e949b2d961d";
 
     /**
      * Setup the firefox test driver. This needs the environment variable
@@ -26,9 +28,10 @@ public class StepDef {
      */
     @Before
     public void before(Scenario scenario) throws Exception {
+
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("platform", "WIN10");
-        capabilities.setCapability("version", "64");
+        capabilities.setCapability("version", "65");
         capabilities.setCapability("browserName", "firefox");
         capabilities.setCapability("name", scenario.getName());
 
@@ -37,7 +40,7 @@ public class StepDef {
         }
 
         driver = new RemoteWebDriver(
-                new URL("http://" + System.getenv("TESTINGBOT_CREDENTIALS") + "@hub.testingbot.com/wd/hub"), capabilities);
+                new URL("http://" + testingBotKEY + ":" + testingBotSECRET + "@hub.testingbot.com/wd/hub"), capabilities);
 
         // prevent errors if we start from a sleeping heroku instance
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -67,7 +70,7 @@ public class StepDef {
     @When("^Result Should be (.*?)$")
     public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
-        String returnValue = driver.findElement(By.className("jss217 jss219 jss226")).getText();
+        String returnValue = driver.findElement(By.id("pokename")).getText();
         assert text.equals(returnValue);
     }
     @Then("Run should be successful")
