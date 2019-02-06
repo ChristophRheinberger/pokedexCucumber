@@ -67,11 +67,11 @@ public class StepDef {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         textField.sendKeys(Keys.RETURN);
     }
-    @When("^Result Should be (.*?)$")
+    @When("^Result Should be '(.*?)'$")
     public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
         String returnValue = driver.findElement(By.id("pokename")).getText();
-        assert text.equals(returnValue);
+        assert text.equals(returnValue.toLowerCase());
     }
     @Then("Run should be successful")
     public void thenStatement () {
