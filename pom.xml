@@ -24,25 +24,13 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>3.141.5</version>
+            <version>3.3.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>info.cukes</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>1.2.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openqa.selenium</groupId>
-            <artifactId>selenium-rc</artifactId>
-            <version>1.0-20081010.060147</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.openqa.selenium.client-drivers</groupId>
-            <artifactId>selenium-java-client-driver</artifactId>
-            <version>1.0-beta-1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
