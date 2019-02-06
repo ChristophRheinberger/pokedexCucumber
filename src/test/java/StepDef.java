@@ -67,14 +67,37 @@ public class StepDef {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         textField.sendKeys(Keys.RETURN);
     }
+
     @When("^Result Should be '(.*?)'$")
     public void whenStatement (String text) {
         // Write code here that turns the phrase above into concrete actions
         String returnValue = driver.findElement(By.id("pokename")).getText();
         assert text.equals(returnValue.toLowerCase());
     }
+
     @Then("Run should be successful")
     public void thenStatement () {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println("Then Statement executed successfully!");
+    }
+
+    @Given("^Open History")
+    public void givenStatementHistory(String text) {
+        // Write code here that turns the phrase above into concrete actions
+        WebElement button = driver.findElement(By.id("history"));
+        button.click();
+    }
+
+    @When("^History should show Pokemon '(.*?)'$")
+    public void whenStatementHistory (String text) {
+        // Write code here that turns the phrase above into concrete actions
+        WebElement tableEntry = driver.findElement(By.id("histoPoke0"));
+        String historyEntry = tableEntry.getText().toLowerCase();
+        assert text.equals(historyEntry);
+    }
+
+    @Then("Run should be successful")
+    public void thenStatementHistory () {
         // Write code here that turns the phrase above into concrete actions
         System.out.println("Then Statement executed successfully!");
     }
